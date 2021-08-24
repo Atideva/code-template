@@ -15,7 +15,6 @@ public class EventManager : MonoBehaviour
     //-------------------------------------------------------------
     #endregion
 
-
     #region Cards actions
     // 
     //
@@ -37,5 +36,11 @@ public class EventManager : MonoBehaviour
     // FlipBack ENDED
     public event Action<GameObject> OnCard_actions_FlipBack_ENDED = delegate { };
     public void Card_actions_FlipBack_ENDED(GameObject card) => OnCard_actions_FlipBack_ENDED(card);
+    //
+    //
+    // State changed
+    public event Action<GameObject, CardState> OnCard_State_changed = delegate { };
+    public void Card_State_changed(GameObject card, CardState state) => OnCard_State_changed(card, state);
     #endregion
+
 }

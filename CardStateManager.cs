@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [System.Serializable]
 public enum CardState
 {
@@ -9,16 +8,11 @@ public enum CardState
     isFlip,
     face
 }
-[System.Serializable]
-public enum CardStatus
-{
-    close,
-    open
-}
 
 
 public class CardStateManager : MonoBehaviour
 {
+
     #region Singleton
     //-------------------------------------------------------------
     public static CardStateManager Instance;
@@ -35,11 +29,14 @@ public class CardStateManager : MonoBehaviour
     #endregion
 
     Dictionary<GameObject, CardState> cardState = new Dictionary<GameObject, CardState>();
-    Dictionary<GameObject, CardStatus> cardStatus = new Dictionary<GameObject, CardStatus>();
-    List<GameObject> onceFacedCards = new List<GameObject>();
+    List<GameObject> onceTouchedCards = new List<GameObject>();
 
+    void Start()
+    {
+        EventManager.Instance.OnCard_State_changed += CardStateChanged;
+    }
 
-    public void SetCardState(GameObject card, CardState state)
+    void CardStateChanged(GameObject card, CardState state)
     {
         if (cardState.ContainsKey(card))
             cardState[card] = state;
@@ -48,7 +45,7 @@ public class CardStateManager : MonoBehaviour
 
         if (state == CardState.face)
         {
-            if (!onceFacedCards.Contains(card)) onceFacedCards.Add(card);
+            if (!onceTouchedCards.Contains(card)) onceTouchedCards.Add(card);
         }
     }
     public CardState GetCardState(GameObject card)
@@ -62,34 +59,7 @@ public class CardStateManager : MonoBehaviour
     }
 
 
-    public void SetCardStatus(GameObject card, CardStatus status)
-    {
-        if (cardStatus.ContainsKey(card))
-            cardStatus[card] = status;
-        else
-            cardStatus.Add(card, status);
-    }
-    public CardStatus GetCardStatus(GameObject card)
-    {
-        if (!cardStatus.ContainsKey(card))
-        {
-            cardStatus.Add(card, CardStatus.close);
-            Debug.LogError("Requested card isnt in status dictionary!");
-        }
-        return cardStatus[card];
-    }
-
-
-
-
-    public void SetState_Back(GameObject card) => SetCardState(card, CardState.back);
-    public void SetState_IsFlip(GameObject card) => SetCardState(card, CardState.isFlip);
-    public void SetState_Face(GameObject card) => SetCardState(card, CardState.face);
-
-    public void SetStatus_Open(GameObject card) => SetCardStatus(card, CardStatus.open);
-    public void SetStatus_Close(GameObject card) => SetCardStatus(card, CardStatus.close);
-
-    public bool IsOnceFaced(GameObject card) => onceFacedCards.Contains(card);
+    public bool IsOnceTouched(GameObject card) => onceTouchedCards.Contains(card)
 
 
 }

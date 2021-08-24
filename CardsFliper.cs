@@ -97,16 +97,7 @@ public class CardsFliper : MonoBehaviour
     }
 
 
-    void SetCardState(GameObject card, CardState state)
-    {
-        switch (state)
-        {
-            case CardState.normal: CardStateManager.Instance.SetState_Normal(card); break;
-            case CardState.isFlip: CardStateManager.Instance.SetState_IsFlip(card); break;
-            case CardState.flipFace: CardStateManager.Instance.SetState_FlipFace(card); break;
-            default: break;
-        }
-    }
+    void SetCardState(GameObject card, CardState state) => EventManager.Instance.Card_State_changed(card, state);
     void CardFlipENDED_event(Transform cardTransform) => EventManager.Instance.Card_actions_Flip_ENDED(cardTransform.gameObject);
     void CardFlipBackENDED_event(Transform cardTransform) => EventManager.Instance.Card_actions_FlipBack_ENDED(cardTransform.gameObject);
 
