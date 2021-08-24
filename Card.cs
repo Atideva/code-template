@@ -22,7 +22,7 @@ public class Card : MonoBehaviour, iCard
     public SpriteRenderer shadow;
     public Color shadowColor;
 
-    public event Action OnCardAnimate;
+    public event Action OnCardAnimate = delegate { };
     DeckData deckType;
     CardData cardData;
 
