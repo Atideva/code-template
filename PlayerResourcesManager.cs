@@ -28,14 +28,13 @@ public class PlayerResourcesManager : MonoBehaviour
     //-------------------------------------------------------------
     #endregion
 
-
     [SerializeField] PlayerResources playerResources;
     const string RESOURCES = ConstantsKeys.PLAYER_RESOURSES;
- 
 
-    public int Gold { get => playerResources.goldCoins;   }
-    public int Gems { get => playerResources.gems;   }
-    public int Special { get => playerResources.butterflies;   }
+
+    public int Gold { get => playerResources.goldCoins; }
+    public int Gems { get => playerResources.gems; }
+    public int Butterfiles { get => playerResources.butterflies; }
 
 
     void AwakeJob() => LoadData();
@@ -43,82 +42,42 @@ public class PlayerResourcesManager : MonoBehaviour
     void SaveData() => PlayerPrefs.SetString(RESOURCES, JsonUtility.ToJson(playerResources));
 
 
-    public bool TryBuy_UseMultiResources(int gold, int gem, int butterlies)
-    {
-        if (playerResources.goldCoins >= gold &&
-            playerResources.gems >= gem &&
-            playerResources.butterflies >= butterlies)
-        {
-            ResourcesSubtract(gold, gem, butterlies);
-            SaveData();
-            return true;
-        }
-        else
-            return false;
-    }
-    void ResourcesSubtract(int gold, int gem, int butterlies)
-    {
-        playerResources.goldCoins -= gold;
-        playerResources.gems -= gem;
-        playerResources.butterflies -= butterlies;
-    }
-
-
-    public bool TryBuy_UseGold(int value)
-    {
-        if (playerResources.goldCoins >= value)
-        {
-            GoldSubtract(value);
-            return true;
-        }
-        else
-            return false;
-    }
+    public void GoldAdd(int value) => GoldChange(value);
+    public void GoldSubtract(int value) => GoldChange(-value);
     void GoldChange(int value)
     {
         playerResources.goldCoins += value;
         SaveData();
     }
-    public void GoldAdd(int value) => GoldChange(value);
-    public void GoldSubtract(int value) => GoldChange(-value);
 
-
-    public bool TryBuy_UseGem(int value)
-    {
-        if (playerResources.gems >= value)
-        {
-            GemSubtract(value);
-            return true;
-        }
-        else
-            return false;
-    }
+  
+    public void GemAdd(int value) => GemChange(value);
+    public void GemSubtract(int value) => GemChange(-value);
     void GemChange(int value)
     {
         playerResources.gems += value;
         SaveData();
     }
-    public void GemAdd(int value) => GemChange(value);
-    public void GemSubtract(int value) => GemChange(-value);
 
 
-    public bool TryBuy_UseButterflies(int value)
-    {
-        if (playerResources.butterflies >= value)
-        {
-            ButterfliesSubtract(value);
-            return true;
-        }
-        else
-            return false;
-    }
+    public void ButterfliesAdd(int value) => ButterfliesChange(value);
+    public void ButterfliesSubtract(int value) => ButterfliesChange(-value);
     void ButterfliesChange(int value)
     {
         playerResources.butterflies += value;
         SaveData();
     }
-    public void ButterfliesAdd(int value) => ButterfliesChange(value);
-    public void ButterfliesSubtract(int value) => ButterfliesChange(-value);
+
+
+    public void MultiResourcesAdd(int gold, int gem, int butterflies) => MultiResourcesChange(gold, gem, butterflies);
+    public void MultiResourcesSubtract(int gold, int gem, int butterflies) => MultiResourcesChange(-gold, -gem, -butterflies);
+    void MultiResourcesChange(int gold, int gem, int butterflies)
+    {
+        playerResources.goldCoins += gold;
+        playerResources.gems += gem;
+        playerResources.butterflies += butterflies;
+        SaveData();
+    }
 
 
 }
