@@ -22,7 +22,8 @@ public class PlayerResourcesManager : MonoBehaviour
         if (Instance == null) Instance = this;
         else gameObject.SetActive(false);
 
-        Debug.LogWarning("Make me DontDestroyOnLoad please, to prevent load huge data for all levels at each OnLevelLoad");
+        Debug.Log("I'm DontDestroyOnLoad object", gameObject);
+        DontDestroyOnLoad(gameObject);
         AwakeJob();
     }
     //-------------------------------------------------------------
