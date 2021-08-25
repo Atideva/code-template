@@ -4,7 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerResources
 {
-    public int goldCoins;
+    public int gold;
     public int gems;
     public int butterflies;
 
@@ -29,24 +29,24 @@ public class PlayerResourcesManager : MonoBehaviour
     #endregion
 
     [SerializeField] PlayerResources playerResources;
-    const string RESOURCES = ConstantsKeys.PLAYER_RESOURSES;
+    const string RESOURCES_KEY = ConstantsKeys.PLAYER_RESOURSES;
 
 
-    public int Gold { get => playerResources.goldCoins; }
+    public int Gold { get => playerResources.gold; }
     public int Gems { get => playerResources.gems; }
     public int Butterfiles { get => playerResources.butterflies; }
 
 
     void AwakeJob() => LoadData();
-    void LoadData() => playerResources = PlayerPrefs.HasKey(RESOURCES) ? JsonUtility.FromJson<PlayerResources>(PlayerPrefs.GetString(RESOURCES)) : new PlayerResources();
-    void SaveData() => PlayerPrefs.SetString(RESOURCES, JsonUtility.ToJson(playerResources));
+    void LoadData() => playerResources = PlayerPrefs.HasKey(RESOURCES_KEY) ? JsonUtility.FromJson<PlayerResources>(PlayerPrefs.GetString(RESOURCES_KEY)) : new PlayerResources();
+    void SaveData() => PlayerPrefs.SetString(RESOURCES_KEY, JsonUtility.ToJson(playerResources));
 
 
     public void GoldAdd(int value) => GoldChange(value);
     public void GoldSubtract(int value) => GoldChange(-value);
     void GoldChange(int value)
     {
-        playerResources.goldCoins += value;
+        playerResources.gold += value;
         SaveData();
     }
 
@@ -73,7 +73,7 @@ public class PlayerResourcesManager : MonoBehaviour
     public void MultiResourcesSubtract(int gold, int gem, int butterflies) => MultiResourcesChange(-gold, -gem, -butterflies);
     void MultiResourcesChange(int gold, int gem, int butterflies)
     {
-        playerResources.goldCoins += gold;
+        playerResources.gold += gold;
         playerResources.gems += gem;
         playerResources.butterflies += butterflies;
         SaveData();
