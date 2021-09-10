@@ -11,16 +11,15 @@ public class ShopVendor : MonoBehaviour
         if (Instance == null) Instance = this;
         else gameObject.SetActive(false);
 
-        Debug.LogWarning("Make me DontDestroyOnLoad please, to prevent load huge data for all levels at each OnLevelLoad");
+        DontDestroyOnLoad(gameObject);
+        Debug.Log("I'm DontDestroyOnLoad!",gameObject);
     }
     //-------------------------------------------------------------
     #endregion
 
     PlayerResourcesManager playerResourcesManager;
-    void Start()
-    {
-        playerResourcesManager = PlayerResourcesManager.Instance;
-    }
+    void Start() => playerResourcesManager = PlayerResourcesManager.Instance;
+ 
 
 
     public bool TryBuy_UseGold(int value)

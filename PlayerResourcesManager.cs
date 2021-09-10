@@ -1,20 +1,14 @@
 using UnityEngine;
 
 
-[System.Serializable]
-public class PlayerResources
-{
-    public int gold;
-    public int gems;
-    public int butterflies;
+ 
 
-}
 
 
 public class PlayerResourcesManager : MonoBehaviour
 {
 
-    #region Awake Singleton
+    #region Awake() Singleton
     //-------------------------------------------------------------
     public static PlayerResourcesManager Instance;
     void Awake()
@@ -24,23 +18,31 @@ public class PlayerResourcesManager : MonoBehaviour
 
         Debug.Log("I'm DontDestroyOnLoad object", gameObject);
         DontDestroyOnLoad(gameObject);
-        AwakeJob();
+        AwakeLoad();
     }
     //-------------------------------------------------------------
     #endregion
+    
+    public struct PlayerResources
+    {
+        public int gold;
+        public int gems;
+        public int butterflies;
 
+    }
+    
     [SerializeField] PlayerResources playerResources;
-    const string RESOURCES_KEY = ConstantsKeys.PLAYER_RESOURSES;
+    const string SAVE_KEY = ConstantsKeys.PLAYER_RESOURSES;
 
 
-    public int Gold { get => playerResources.gold; }
-    public int Gems { get => playerResources.gems; }
-    public int Butterfiles { get => playerResources.butterflies; }
+    public int Gold => playerResources.gold;  
+    public int Gems => playerResources.gems;  
+    public int Butterfiles => playerResources.butterflies;  
 
 
-    void AwakeJob() => LoadData();
-    void LoadData() => playerResources = PlayerPrefs.HasKey(RESOURCES_KEY) ? JsonUtility.FromJson<PlayerResources>(PlayerPrefs.GetString(RESOURCES_KEY)) : new PlayerResources();
-    void SaveData() => PlayerPrefs.SetString(RESOURCES_KEY, JsonUtility.ToJson(playerResources));
+    void AwakeLoad() => LoadData();
+    void LoadData() => playerResources = PlayerPrefs.HasKey(SAVE_KEY) ? JsonUtility.FromJson<PlayerResources>(PlayerPrefs.GetString(SAVE_KEY)) : new PlayerResources();
+    void SaveData() => PlayerPrefs.SetString(SAVE_KEY, JsonUtility.ToJson(playerResources));
 
 
     public void GoldAdd(int value) => GoldChange(value);

@@ -12,7 +12,7 @@ public enum DeckType
 }
 
 
-[CreateAssetMenu(fileName = "Deck_", menuName = "Cards/New Deck")]
+[CreateAssetMenu(fileName = "New Deck", menuName = "Cards/New Deck")]
 public class DeckData : ScriptableObject
 {
     [Header("Type")]

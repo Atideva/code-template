@@ -2,25 +2,24 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class Card : MonoBehaviour, iCard
 {
     [Header("Back")]
-    public SpriteRenderer cardBackImage;
+    [SerializeField] SpriteRenderer cardBackImage;
 
     [Header("Frames")]
-    public SpriteRenderer cardFrameFront;
-    public SpriteRenderer cardFrameBack;
+    [SerializeField] SpriteRenderer cardFrameFront;
+    [SerializeField] SpriteRenderer cardFrameBack;
 
     [Header("Gem")]
-    public bool useGem;
-    public bool hideGemAfterPair;
-    public List<GameObject> gemObjects = new List<GameObject>();
+    [SerializeField] bool useGem;
+    [SerializeField] bool hideGemAfterPair;
+    [SerializeField] List<GameObject> gemObjects = new List<GameObject>();
 
     [Header("Fake Shadow")]
-    public bool useShadow;
-    public SpriteRenderer shadow;
-    public Color shadowColor;
+    [SerializeField] bool useShadow;
+    [SerializeField] SpriteRenderer shadow;
+    [SerializeField] Color shadowColor;
 
     public event Action OnCardAnimate = delegate { };
     DeckData deckType;
@@ -29,8 +28,6 @@ public class Card : MonoBehaviour, iCard
 
     void Start()
     {
-        if (!Application.isPlaying) return;
-
         if (!useGem) DisableGem();
 
         if (!useShadow)
@@ -70,6 +67,6 @@ public class Card : MonoBehaviour, iCard
     }
     void DisableShadow() => shadow.gameObject.SetActive(false);
     void SetupShadowColor() => shadow.color = shadowColor;
-    void PlaySound(AudioEvent audioEvent) => AudioManager.Instance.PlaySimpleEvent(audioEvent);
+    void PlaySound(SoundData sound) => AudioManager.Instance.PlaySound(sound);
 
 }

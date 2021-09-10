@@ -14,10 +14,10 @@ public class CardsFliper : MonoBehaviour
     [SerializeField] FlipDirection flipBackDirection;
 
     [Header("Sounds")]
-    [SerializeField] AudioEvent flipSound;
-    [SerializeField] AudioEvent flipBackSound;
+    [SerializeField] SoundData flipSound;
+    [SerializeField] SoundData flipBackSound;
 
-    const float SPEED_MULT = 100;
+    const float SPEED_EDITOR_FACTOR= 100;
     const float ANGLE_ROT_MAX = 180;
 
     void Start()
@@ -45,7 +45,7 @@ public class CardsFliper : MonoBehaviour
 
         while (angleRotated < angleRotatedMax)
         {
-            float step = rotationSpeed * SPEED_MULT * dir * Time.deltaTime;
+            float step = rotationSpeed * SPEED_EDITOR_FACTOR * dir * Time.deltaTime;
             y += step;
             angleRotated += Mathf.Abs(step);
 
@@ -77,7 +77,7 @@ public class CardsFliper : MonoBehaviour
 
         while (angleRotated < angleRotatedMax)
         {
-            float step = rotationSpeedBack * SPEED_MULT * dir * Time.deltaTime;
+            float step = rotationSpeedBack * SPEED_EDITOR_FACTOR * dir * Time.deltaTime;
             y += step;
             angleRotated += Mathf.Abs(step);
 
@@ -102,7 +102,7 @@ public class CardsFliper : MonoBehaviour
     void CardFlipBackENDED_event(Transform cardTransform) => EventManager.Instance.Card_actions_FlipBack_ENDED(cardTransform.gameObject);
 
 
-    void PlaySound(AudioEvent audioEvent) => AudioManager.Instance.PlaySimpleEvent(audioEvent);
+    void PlaySound(SoundData sound) => AudioManager.Instance.PlaySound(sound);
     float GetDirection(FlipDirection dir) => dir == FlipDirection.Left ? 1 : -1;
 
 }
