@@ -53,8 +53,6 @@ namespace Gameplay
             spawner.SetPool(pool);
             
             var locatorData = GetLocatorData();
-            locatorData.startPos = spawnStartPos.position;
-            
             spawnLocator.SetData(locatorData);
         }
         
@@ -101,7 +99,7 @@ namespace Gameplay
                 maxHeight = curveHeight,
                 maxWidth = curveWidth,
                 totalSteps = cubesPerCurve,
-                startPos = cubeList.GetLastCube() ? cubeList.GetLastCube().transform.position : Vector3.zero
+                startPos = cubeList.GetLastCube() ? cubeList.GetLastCube().transform.position : spawnStartPos.position
             };
             return locatorData;
         }
