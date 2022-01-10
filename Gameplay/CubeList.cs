@@ -6,8 +6,7 @@ namespace Gameplay
     public class CubeList : MonoBehaviour
     {
         [Header("Debug")]
-        [SerializeField]
-        private List<Cube> cubes = new List<Cube>();
+        [SerializeField] private List<Cube> cubes = new List<Cube>();
 
         private void Awake()
         {

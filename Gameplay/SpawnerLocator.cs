@@ -18,7 +18,7 @@ namespace Gameplay
         private int _cubesPerCurve;
         private Vector3 _curveStartDir;
         private Vector3 _curveEndDir;
-        [SerializeField] private int _step;
+        private int _step;
 
         private float _padding;
         public bool IsNewDataRequire => _step + 1 >= _cubesPerCurve;
@@ -37,11 +37,11 @@ namespace Gameplay
 
         public void SetData(SpawnerLocatorData locatorData)
         {
-            // curves are glued, so "last cube" in previous curve = "first cube" in new curve
             data = locatorData;
             _step = 0;
 
-            _curveStartDir = _curveEndDir; //set NEW curve startDir to LAST curve endDir
+    
+            _curveStartDir = _curveEndDir; // curves are glued, so previous curve endDir =  new curve startDir
             _curveEndDir = GetEndDir();
             _cubesPerCurve = locatorData.totalSteps;
 

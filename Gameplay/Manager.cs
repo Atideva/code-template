@@ -24,7 +24,7 @@ namespace Gameplay
         [SerializeField] private CubeList cubeList;
 
         private Player _player;
-        [SerializeField]   private int _cubeId;
+        private int _cubeId;
 
         private void Start()
         {

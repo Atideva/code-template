@@ -7,10 +7,9 @@ namespace Gameplay
     public class CurveList : MonoBehaviour
     {
         [SerializeField] private AnimationCurve curvesChance;
-        [Range(0.1f, 30f)]
-        [SerializeField] private float chanceFactor = 4f;
+        [Range(0.1f, 30f)] [SerializeField] private float chanceFactor = 4f;
         [SerializeField] private List<AnimationCurve> curves;
-        public List<AnimationCurve> Curves => curves;
+        public IReadOnlyList<AnimationCurve> Curves => curves;
 
 
         public AnimationCurve GetRandomCurve()

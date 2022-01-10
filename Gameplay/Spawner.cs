@@ -5,7 +5,6 @@ namespace Gameplay
 {
     public class Spawner : MonoBehaviour
     {
-        
         public event Action<Cube> OnCubeSpawned = delegate { };
         private Pool _pool;
         public void SetPool( Pool pool)
