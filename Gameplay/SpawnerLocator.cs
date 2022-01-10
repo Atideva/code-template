@@ -37,7 +37,6 @@ namespace Gameplay
 
         public void SetData(SpawnerLocatorData locatorData)
         {
-            Debug.LogWarning("New data set");
             // curves are glued, so "last cube" in previous curve = "first cube" in new curve
             data = locatorData;
             _step = 0;
