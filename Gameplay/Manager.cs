@@ -42,7 +42,7 @@ namespace Gameplay
             _player.Move.OnLandAtCube += OnLandAtCube;
             spawner.OnCubeSpawned += OnCubeSpawn;
 
-            // StartCoroutine(AutoSpawn(autoSpawnCount));
+           StartCoroutine(AutoSpawn(autoSpawnCount));
         }
 
         private void Init()
@@ -57,35 +57,7 @@ namespace Gameplay
             
             spawnLocator.SetData(locatorData);
         }
-
-        public bool testSpawn;
-        private bool testbool;
-        private void Update()
-        {
-            if (testSpawn)
-            {
-                testSpawn = false;
-                
-                if (spawnLocator.IsNewDataRequire)
-                {
-                    spawnLocator.SetData(GetLocatorData());
-                }
-                
-                if (!testbool)
-                {
-                    testbool = true;
-                }
-                else
-                {
-                    spawnLocator.NextStep();
-                }
-
-   
-                var pos = spawnLocator.GetPos();
-                spawner.Spawn(pos);
-            }
-        }
-
+        
         private IEnumerator AutoSpawn(int count)
         {
             var pos0 = spawnLocator.GetPos();
@@ -120,12 +92,6 @@ namespace Gameplay
             spawner.Spawn(spawnLocator.GetPos());
         }
 
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.black;
-            Gizmos.DrawWireCube(spawnStartPos.position, Vector3.one);
-        }
-
         SpawnerLocatorData GetLocatorData()
         {
             var locatorData = new SpawnerLocatorData
@@ -138,6 +104,12 @@ namespace Gameplay
                 startPos = cubeList.GetLastCube() ? cubeList.GetLastCube().transform.position : Vector3.zero
             };
             return locatorData;
+        }
+        
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.black;
+            Gizmos.DrawWireCube(spawnStartPos.position, Vector3.one);
         }
     }
 }
